@@ -5,7 +5,9 @@
 <div class="adminHeader">
 	<span><a href='adminPage.php'><strong>Home</strong></a></span>
 	<span><strong>|</strong></span>
-	<span><a href='regisUser.php'><strong>Create User</strong></a></span>
+	<span><a href='create.php'><strong>Create</strong></a></span>
+	<span><strong>|</strong></span>
+	<span><a href='view.php'><strong>View</strong></a></span>
 	<span><strong>|</strong></span>
 	<span><a href='assignDriver.php'><strong>Assign Driver</strong></a></span>
 	<span><strong>|</strong></span>

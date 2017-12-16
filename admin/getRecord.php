@@ -19,6 +19,7 @@
 			echo "<center>";
 			echo "<table class ='showData' 	border = 1>";
 			echo "<tr>";
+			echo "<th>Link</th>";
 			echo "<th>ID</th>";
 			echo "<th>Name</th>";
 			echo "<th>IC</th>";
@@ -31,6 +32,10 @@
 
 			while ($row = mysqli_fetch_array($records)) {
 				echo "<tr>";
+
+echo '<td><input type="submit" value="Next" name="next"></td>';
+
+
 				echo "<td>".$row['userID']. "</td>";
 				echo "<td>" .$row['Name']. "</td>";
 				echo "<td>" .$row['IC']. "</td>";
