@@ -2,7 +2,7 @@
 include('../connDB.php');
 
 //Get users data
-$sql = "SELECT c.ID, c.Name, c.IC, c.Contact, c.BirthYear, c.Address, c.Gender, c.RegisDate, c.Patient_ID,  p.Name as P_Name, c.Relationship FROM clients c, patients p WHERE c.Patient_ID = p.ID";
+$sql = "SELECT c.ID, c.Name, c.IC, c.Contact, c.BirthYear, c.Address, c.Gender, c.RegisDate, c.Patient_ID,  p.Name as P_Name, c.Relationship FROM clients c, patients p WHERE c.Patient_ID = p.ID ORDER BY c.ID";
 
 
 
@@ -12,7 +12,6 @@ if($records = mysqli_query($con,$sql)){
 	echo "<span><p class='big'>Clients</p></span>";
 	echo "<table class ='showData' 	border = 1>";
 	echo "<tr>";
-	echo "<th>Link</th>";
 	echo "<th>ID</th>";
 	echo "<th>Name</th>";
 	echo "<th>IC</th>";
@@ -30,7 +29,6 @@ if($records = mysqli_query($con,$sql)){
 		echo "<tr>";
 
 
-		echo '<td><input type="submit" value="Next" name="next"></td>';
 
 
 		echo "<td>".$row['ID']. "</td>";
@@ -51,12 +49,21 @@ echo "<td>" .$row['Patient_ID']. "</td>";
 echo "<td>" .$row['P_Name']. "</td>";
 echo "<td>" .$row['Relationship']. "</td>";
 
+echo "<td>";
+				echo "<a href= 'view/viewClient.php?ID={$row['ID']}'>View</a>";
+	//			echo "/";
+	//			echo "<a href= 'Delete.php?id={$row['ID']}'>Delete</a>";
+				echo "</td>";		
 
-				/*echo "<td>";
-				echo "<a href= 'edit.php?id={$row['userID']}'>Edit</a>";
-				echo "/";
-				echo "<a href= 'Delete.php?id={$row['userID']}'>Delete</a>";
-				echo "</td>";*/
+				echo "<td>";
+				echo "<a href= 'update/update_client.php?ID={$row['ID']}'>Update</a>";
+				echo "</td>";
+
+				echo "<td>";
+echo "<a href= 'delete.php?ID={$row['ID']}&type=$type' onclick='return myFunction({$row['ID']})'>Delete</a>";
+//echo "<a href= 'delete.php?ID={$row['ID']}'>Delete</a>";
+				echo "</td>";	
+
 				echo "</tr>";
 			}
 			echo "</table>";
@@ -67,3 +74,15 @@ echo "<td>" .$row['Relationship']. "</td>";
 		}
 
 		?>
+
+		<script>
+function myFunction() {
+	var id = arguments[0];
+    var r = confirm("Delete Client? ID: " + id);
+    if (r == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+</script>

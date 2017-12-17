@@ -1,44 +1,57 @@
 <?php 
-include 'regisClientPHP.php'; 
-?>
+
+session_start();
+
+if(isset($_SESSION['userID'])){
+
+	include '../../CSS.php'; 
+	include 'getClient.php'; 
+	include 'updateClientPHP.php';
+
+
+	
+
+	?>
 <!DOCTYPE html>
 <html>
+<title>Update Client</title>
 <body>
+
+	<a href="../view.php?regisType=C"><img src='../../button/back.png' width="50" height="50"></a>
 
 	<div class='create'>
 		<form method="post" name="createForm" action="" enctype='multipart/form-data' onsubmit="return myFunction()">
 			<fieldset>
-				<legend><p class="big"><strong>Create Client</strong></p></legend>
+				<legend><p class="big"><strong>Update Client</strong></p></legend>
 				<label for="name">Name:</label>
-				<input id="name" name="Name" type="text" value="" maxlength="255" />
-				<font color="red"><div id = "nameError"></div></font>
-				<br/><br/>
+			<input id="name" name="Name" type="text" value="<?php echo $Name; ?>" maxlength="255" />
+					<font color="red"><div id = "nameError"></div></font>
+					<br/><br/>
 
 
 				<label for="IC">IC:</label>
-				<input id="ic" name="IC" type="text" value="" maxlength="16" />
-				<font color="red"><div id = "icError"></div></font>
-				<br/><br/>
+					<input id="ic" name="IC" type="text" value="<?php echo $IC; ?>" maxlength="16" />
+					<font color="red"><div id = "icError"></div></font>
+					<br/><br/>
 
 				<label for="Contact">Contact:</label>
-				<input id="contact" name="Contact" type="text" value="" maxlength="16" />
-				<font color="red"><div id = "contactError"></div></font>
-				<br/><br/>
+					<input id="contact" name="Contact" type="text" value="<?php echo $Contact; ?>" maxlength="16" />
+					<font color="red"><div id = "contactError"></div></font>
+					<br/><br/>
 
-				<label for="Age">Age:</label>
-				<input id="age" name="Age" type="text" value="" maxlength="3" />
-				<font color="red"><div id = "ageError"></div></font>
-				<br/><br/>
+					<label for="Age">Age:</label>
+					<input id="age" name="Age" type="text" value="<?php echo $Age; ?>" maxlength="3" />
+					<font color="red"><div id = "ageError"></div></font>
+					<br/><br/>
 
 				<label for="Address">Address:</label>
-				<input id="address" name="Address" type="text" value="" maxlength="255" />
-				<font color="red"><div id = "addressError"></div></font>
-				<br/><br/>
+					<input id="address" name="Address" type="text" value="<?php echo $Address; ?>" maxlength="255" />
+					<font color="red"><div id = "addressError"></div></font>
+					<br/><br/>
 
 				<!-- Gender -->
-				<input type="radio" name="Gender" value="M" checked> Male<br>
-				<input type="radio" name="Gender" value="F"> Female<br>
-
+		<input id="male" type="radio" name="Gender" value="M" <?php echo ($Gender=="M" ? 'checked':''); ?>> Male<br>
+					<input id="female" type="radio" name="Gender" value="F" <?php echo ($Gender=="F" ? 'checked':''); ?>> Female<br>
 
 <!--		<label for="Sex">Gender:</label>
 		<select id="sex" name="sex">
@@ -51,13 +64,16 @@ include 'regisClientPHP.php';
 	<br/>
 
 	<label for="Date">Date:</label>
-	<input id="date" name="regisDate" type="date" value="" maxlength="16" />
+	<input id="date" name="regisDate" type="date" value="<?php echo $regisDate; ?>" maxlength="16" />
 	<font color="red"><div id = "dateError"></div></font>
 	<br/><br/>
 
+
+
+
 	<label>Patient:</label>
 	<select id="patient" name="patient">
-		<option value ="-1">-------</option>
+		<option value ="<?php echo $Patient_ID; ?>"><?php echo $P_Name; ?></option>
 		<?php while($row = mysqli_fetch_array($resultPatient)):;?>
 			<option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
 		<?php endwhile;?>
@@ -68,17 +84,14 @@ include 'regisClientPHP.php';
 
 
 	<label for="Relationship">Relationship:</label>
-	<input id="relationship" name="Relationship" type="text" value="" maxlength="16" />
+	<input id="relationship" name="Relationship" type="text" value="<?php echo $Relationship; ?>" maxlength="16" />
 	<font color="red"><div id = "relationshipError"></div></font>
 	<br/><br/>
 
-	<label for="Photo">Photo:</label>
-	<input id="file" name="file" type="file"/>
-	<br/><br/>
 </fieldset>
 
 <br>
-<center><input type="submit" value="Next" name="next" onclick="return myFunction()"></center>
+<center><input type="submit" value="Update" name="update" onclick="return myFunction()"></center>
 </form>
 </div>
 
@@ -162,3 +175,16 @@ return (i == 0);
 
 </body>
 </html> 
+
+<?php 
+}else{
+	header("HTTP/1.0 404 Not Found");
+	echo "<h1>404 Not Found</h1>";
+	echo "<p>The page that you have requested could not be found.</p>";
+
+	echo "<a href= '../../login.php'>";
+	echo "Please Login to open this page.";
+	echo "</a>";
+	exit();
+}
+?>

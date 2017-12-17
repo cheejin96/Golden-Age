@@ -6,7 +6,7 @@ include('../connDB.php');
 
 //$sql = "SELECT ID, Name, IC, Contact, BirthYear, Address, Gender, RegisDate, BloodType, Meals, Allergic, Sickness, Deposit, Image FROM patients";
 
-$sql = "SELECT ID, Name, IC, Contact, BirthYear, Address, Gender, RegisDate FROM patients";
+$sql = "SELECT ID, Name, IC, Contact, BirthYear, Address, Gender, RegisDate FROM patients ORDER BY ID";
 
 echo "<center>";
 if($records = mysqli_query($con,$sql)){
@@ -15,7 +15,6 @@ if($records = mysqli_query($con,$sql)){
 	echo "<span><p class='big'>Patients</p></span>";
 	echo "<table class ='showData' 	border = 1>";
 	echo "<tr>";
-	echo "<th>Link</th>";
 	echo "<th>ID</th>";
 	echo "<th>Name</th>";
 	echo "<th>IC</th>";
@@ -34,7 +33,6 @@ if($records = mysqli_query($con,$sql)){
 		echo "<tr>";
 
 
-		echo '<td><input type="submit" value="Next" name="next"></td>';
 
 
 		echo "<td>".$row['ID']. "</td>";
@@ -57,12 +55,21 @@ if($records = mysqli_query($con,$sql)){
 
 
 
-
 				echo "<td>";
 				echo "<a href= 'view/viewPatient.php?ID={$row['ID']}'>View</a>";
 	//			echo "/";
 	//			echo "<a href= 'Delete.php?id={$row['ID']}'>Delete</a>";
 				echo "</td>";
+
+					echo "<td>";
+				echo "<a href= 'update/update_patient.php?ID={$row['ID']}'>Update</a>";
+				echo "</td>";
+
+				echo "<td>";
+echo "<a href= 'delete.php?ID={$row['ID']}&type=$type' onclick='return myFunction({$row['ID']})'>Delete</a>";
+//echo "<a href= 'delete.php?ID={$row['ID']}'>Delete</a>";
+				echo "</td>";	
+
 				echo "</tr>";
 			}
 			echo "</table>";
@@ -74,3 +81,15 @@ echo 'No Records';
 		echo "</center>";
 
 		?>
+
+		<script>
+function myFunction() {
+	var id = arguments[0];
+    var r = confirm("Delete Patient? ID: " + id);
+    if (r == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+</script>

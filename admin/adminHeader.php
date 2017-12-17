@@ -1,6 +1,13 @@
-<?php include ('../CSS.php') ?>
+<?php 
+//session_start();
+include ('../CSS.php'); ?>
+
+
+
 <div class="logout">
-	<a href='../login.php'> Logout </a>
+	<button>
+		<a href='logout.php'> Logout </a>
+	</button>
 </div>
 <div class="adminHeader">
 	<span><a href='adminPage.php'><strong>Home</strong></a></span>
@@ -13,3 +20,6 @@
 	<span><strong>|</strong></span>
 	<span><a href='searchAdminVersion.php'><strong>Search</strong></a></span>
 </div>
+
+
+

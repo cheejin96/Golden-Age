@@ -186,7 +186,14 @@ echo "</tr>";
 
             echo "<tr>";
             echo "<th>Name</th>";
-            echo "<td>".$c_row['Name']. "</td>";
+
+ echo "<td>";
+
+
+
+         echo "<a href='viewClient.php?ID={$c_row['ID']}'>" . $c_row['Name']. "</a>";
+
+           echo "</td>";
             echo "</tr>";
 
              echo "<tr>";

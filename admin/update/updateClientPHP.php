@@ -1,5 +1,4 @@
 <?php 
-include('../connDB.php');
 
 
 $showPatient = 'SELECT ID, Name FROM patients;';
@@ -10,7 +9,7 @@ $resultPatient = mysqli_query($con,$showPatient);
 
 
 
-	if (isset($_POST['next'])) {
+	if (isset($_POST['update'])) {
 
 $Name = $_POST['Name'];
 $IC = $_POST['IC'];
@@ -20,22 +19,20 @@ $Birthyear = date("Y") - $Age;
 $Contact = $_POST['Contact'];
 $Address = $_POST['Address'];
 $regisDate = $_POST['regisDate'];
-$regisType = 'C';
 $Patient_ID = $_POST['patient'];
 $Relationship = $_POST['Relationship'];
 
 
 $Password = md5($IC);
 
-$sqlPatient = "INSERT INTO clients (Name, IC, Gender, Birthyear,Contact, Address, regisDate, regisType, Password, Patient_ID, Relationship) 
-VALUES ('$Name', '$IC', '$Gender', $Birthyear, '$Contact', '$Address', '$regisDate', '$regisType', '$Password', '$Patient_ID', '$Relationship')";
+$sqlPatient = "UPDATE clients SET Name = '$Name', IC = '$IC', Gender = '$Gender', Birthyear = '$Birthyear', Contact = '$Contact', Address = '$Address', regisDate = '$regisDate', Patient_ID = $Patient_ID, Relationship = '$Relationship' WHERE ID=$ID";
 
 $result = mysqli_query($con,$sqlPatient);
 
 
 var_dump($result);
 		if ($result) {
-			echo "Client Added";
+			header('Location: ../view.php?type=C');
 		}else{
 			echo 'failed to add client';
 		}	

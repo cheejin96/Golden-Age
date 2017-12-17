@@ -2,7 +2,7 @@
 include('../connDB.php');
 
 //Get users data
-$sql = "SELECT ID, Name, IC, Contact, BirthYear, Address, Gender, RegisDate, RegisType FROM users";
+$sql = "SELECT ID, Name, IC, Contact, BirthYear, Address, Gender, RegisDate, RegisType FROM users ORDER BY ID";
 
 
 
@@ -12,7 +12,6 @@ if($records = mysqli_query($con,$sql)){
 	echo "<span><p class='big'>Users</p></span>";
 	echo "<table class ='showData' 	border = 1>";
 	echo "<tr>";
-	echo "<th>Link</th>";
 	echo "<th>ID</th>";
 	echo "<th>Name</th>";
 	echo "<th>IC</th>";
@@ -28,7 +27,6 @@ if($records = mysqli_query($con,$sql)){
 		echo "<tr>";
 
 
-		echo '<td><input type="submit" value="Next" name="next"></td>';
 
 
 		echo "<td>".$row['ID']. "</td>";
@@ -70,11 +68,29 @@ if($records = mysqli_query($con,$sql)){
 		}
 		echo "</td>";
 
+		echo "<td>";
+				echo "<a href= 'view/viewUser.php?ID={$row['ID']}'>View</a>";
+	//			echo "/";
+	//			echo "<a href= 'Delete.php?id={$row['ID']}'>Delete</a>";
+				echo "</td>";
+
+
+		echo "<td>";
+				echo "<a href= 'update/update_user.php?ID={$row['ID']}'>Update</a>";
+				echo "</td>";
+
 				/*echo "<td>";
 				echo "<a href= 'edit.php?id={$row['userID']}'>Edit</a>";
 				echo "/";
 				echo "<a href= 'Delete.php?id={$row['userID']}'>Delete</a>";
 				echo "</td>";*/
+
+			//		xmlhttp.open("GET","getRecord.php?q="+str+"&type="+type.value,true);
+
+echo "<td>";
+echo "<a href= 'delete.php?ID={$row['ID']}&type=$type' onclick='return myFunction({$row['ID']})'>Delete</a>";
+//echo "<a href= 'delete.php?ID={$row['ID']}'>Delete</a>";
+				echo "</td>";	
 				echo "</tr>";
 			}
 			echo "</table>";
@@ -85,3 +101,16 @@ if($records = mysqli_query($con,$sql)){
 		}
 
 		?>
+
+
+		<script>
+function myFunction() {
+	var id = arguments[0];
+    var r = confirm("Delete User? ID: " + id);
+    if (r == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+</script>

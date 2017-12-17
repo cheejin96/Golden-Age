@@ -1,6 +1,12 @@
 <?php include ('../CSS.php') ?>
 <?php include ('adminHeader.php') ?>
 
+   <?php if(isset($_GET["type"])){
+       $type = $_GET["type"]; 
+   }
+   ?>
+
+
 <html>
 <head>
     <title id = "title">Country</title>
@@ -10,27 +16,26 @@
         <form>
             <span><p class="big">View member </p></span>
             <label>Register Type:</label>
-            <select name="regisType" onchange="this.form.submit()">
+            <select name="type" onchange="this.form.submit()">
                 <option value="" disabled selected>--select--</option>
-                <option value="A">Admin</option>
-                <option value="C">Client</option>
-                <option value="Z">Chef</option>
-                <option value="D">Driver</option>
-                <option value="N">Nurse</option>
-                <option value="P">Patient</option>
+                <option value="U" <?php echo (isset($type)&&$type=="U" ? 'selected':''); ?>>User</option>
+                <option value="C" <?php echo (isset($type)&&$type=="C" ? 'selected':''); ?>>Client</option>
+                <option value="P" <?php echo (isset($type)&&$type=="P" ? 'selected':''); ?>>Patient</option>
+
+
+
+
+
             </select>
         </form>
     </div>
     <?php
-    if(isset($_GET["regisType"])){
-       $regisType = $_GET["regisType"];
+    if(isset($_GET["type"])){
+       $type = $_GET["type"];
 
-       switch ($regisType) {
+       switch ($type) {
 
-case 'A':
-case 'D':
-case 'N':
-case 'Z':
+case 'U':
 include 'getAllData/getAllUsers.php';
     break;
 

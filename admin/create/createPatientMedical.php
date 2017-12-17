@@ -1,7 +1,14 @@
 <?php 
 
 //include ('regisUser.php'); 
-include ('createPatientMedicalPHP.php');  ?>
+
+session_start();
+
+if(isset($_SESSION['userID'])){
+
+include ('createPatientMedicalPHP.php');  
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -130,3 +137,20 @@ echo "<a href= '../view/viewPatient.php?ID={$Patient_ID}'><img src='../../button
 
 	</body>
 	</html> 
+
+
+
+
+
+<?php 
+}else{
+		header("HTTP/1.0 404 Not Found");
+	echo "<h1>404 Not Found</h1>";
+	echo "<p>The page that you have requested could not be found.</p>";
+
+	echo "<a href= '../../login.php'>";
+	echo "Please Login to open this page.";
+	echo "</a>";
+	exit();
+}
+?>
