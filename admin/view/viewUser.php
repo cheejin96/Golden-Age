@@ -12,7 +12,7 @@ include('../../connDB.php');
 
 
 	
-<a href="../view.php?regisType=U"><img src='../../button/back.png' width="50" height="50"></a> 
+<a href="../view.php?type=U"><img src='../../button/back.png' width="50" height="50"></a> 
 
 
     <?php

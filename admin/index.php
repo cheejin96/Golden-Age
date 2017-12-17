@@ -1,6 +1,8 @@
 <?php include ('../CSS.php') ?>
 <div class="logout">
-    <a href='../login.php'> Logout </a>
+    <button>
+        <a href='logout.php'> Logout </a>
+    </button>
 </div>
 <div class="adminHeader">
     <span><a href='adminPage.php'><strong>Home</strong></a></span>

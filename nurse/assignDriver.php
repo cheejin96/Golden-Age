@@ -1,134 +1,112 @@
-<?php include ('../CSS.php') ?>
-<?php include ('header.php') ?>
+<?php 
+include ('../CSS.php');
+ include ('Header.php'); 
 
-<?php
-	include('../connDB.php');
+include ('assignDriverPHP.php') ?>
 
-	$showPatient = 'SELECT ID, Name FROM patienttable;';
 
-	$showNurse = 'SELECT ID, Name FROM membertable WHERE regisType = "4"';
 
-	$showDriver = 'SELECT ID, Name FROM membertable WHERE regisType = "3"';
+<!DOCTYPE html>
+<html>
+<body>
 
-	$resultPatient = mysqli_query($con,$showPatient);
-	if(!$resultPatient){
-		echo "Patient not found";
-	}
 
-	$resultNurse = mysqli_query($con,$showNurse);
-	if(!$resultNurse){
-		echo "Nurse not found";
-	}
-
-	$resultDriver = mysqli_query($con,$showDriver);
-	if(!$resultDriver){
-		echo "Driver not found";
-	}
-
-	if(isset($_POST['assign'])){
-		$patientID = $_POST['patientName'];
-		$patientSQL = "SELECT name FROM patienttable WHERE ID  = '$patientID'";
-		$resultPatientSQL = mysqli_query($con,$patientSQL);
-		$getPatientName = mysqli_fetch_array($resultPatientSQL);
-		$patientName = $getPatientName['name'];
-
-		$nurseID = $_POST['nurseName'];
-		$nurseSQL = "SELECT name FROM membertable WHERE ID  = '$nurseID'";
-		$resultNurseSQL = mysqli_query($con,$nurseSQL);
-		$getNurseName = mysqli_fetch_array($resultNurseSQL);
-		$nurseName = $getNurseName['name'];
-
-		$driverID = $_POST['driverName'];
-		$driverSQL = "SELECT name FROM membertable WHERE ID  = '$driverID'";
-		$resultDriverSQL = mysqli_query($con,$driverSQL);
-		$getDriverName = mysqli_fetch_array($resultDriverSQL);
-		$driverName = $getDriverName['name'];
-
-		$date = $_POST['date'];
-
-		$description = $_POST['description'];
-		
-		if($patientName == null || $nurseName == null || $driverName == null){
-			echo '<script type="text/javascript">';
-			echo "myFunction()";
-			echo "</script>";
-		}else{
-			$sql = "INSERT INTO driverschedule(patientID, patientName, scheduleDate, nurseID, nurseName, driverID, driverName, description) VALUES ('$patientID','$patientName','$date','$nurseID','$nurseName','$driverID','$driverName', '$description')";
-			$reuslt = mysqli_query($con,$sql);
-			var_dump($reuslt);
-			if($reuslt){
-				echo "Assign successful";
-			}else{
-				echo "Error! Please try again";
-			}
-		}
-	}
-?>
 <div class='create'>
-	<form  name='assignDriver' method="post">
+	<form method="post" name="assignDriver" action="" enctype='multipart/form-data' onsubmit="return myFunction()">
 		<fieldset>
 			<legend><strong><p class="big">Assign Driver</p></strong></legend>
 			<label>Patient Name:</label>
-			<select id="pID" name="patientName">
+			<label>Patient:</label>
+			<select id="patient" name="Patient_ID">0
 				<option value ="-1">-------</option>
 				<?php while($row = mysqli_fetch_array($resultPatient)):;?>
-				<option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
+					<option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
 				<?php endwhile;?>
 			</select>
-			<font color="red"><div id="patient"></div></font>
+			<font color="red"><div id="patientError"></div></font>
 			<br>
 			<label>Nurse Name:</label>
-			<select id="nID" name="nurseName">
+			<select id="nurse" name="Nurse_ID">
 				<option value ="-1">-------</option>
 				<?php while($row = mysqli_fetch_array($resultNurse)):;?>
-				<option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
+					<option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
 				<?php endwhile;?>
 			</select>
-			<font color="red"><div id="nurse"></div></font>
+			<font color="red"><div id="nurseError"></div></font>
 			<br>
 			<label>Driver Name:</label>
-			<select id="dID" name="driverName">
+			<select id="driver" name="Driver_ID">
 				<option value ="-1">-------</option>
 				<?php while($row = mysqli_fetch_array($resultDriver)):;?>
-				<option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
+					<option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
 				<?php endwhile;?>
 			</select>
-			<font color="red"><div id="driver"></div></font>
+			<font color="red"><div id="driverError"></div></font>
 			<br>
 			<label>Date:</label>
-			<input type="datetime-local" name= "date" size="16" >
+			<input id="date" type="date" name= "Date" size="16" >
+			<font color="red"><div id="dateError"></div></font>
+			<br>
+<label>Date:</label>
+			<input id="time" type="time" name= "Time" size="16" >
+<font color="red"><div id="timeError"></div></font>
+
+
 			<br><br>
+<label>Location:</label>
+<input id="location" type="text" name= "Location" size="16" >
+			<font color="red"><div id="locationError"></div></font>
+<br>
 			<label>Description:</label>
 			<br>
-			<textarea rows="4" cols="50" name="description">Enter text here...</textarea> 
+			<textarea rows="4" cols="50" name="Description">Enter text here...</textarea> 
 		</fieldset>
 		<center><input type="submit" value="Assign" name="assign" onclick="return myFunction()"> </center>	
 	</form>
 </div>
-    
+
 <script type="text/javascript">
 	function myFunction()
 	{
-		if (createForm.patientName.value =="-1")
+		var i = 0;
+		if(assignDriver.patient.value == "-1"){
+			document.getElementById("patientError").innerHTML = "Please select patient";
+			i++;
+		}else{
+			document.getElementById("patientError").innerHTML = null;
+		}
+		if (assignDriver.nurse.value =="-1")
 		{
-			document.getElementById("patient").innerHTML = "Please select a patient";
-			return false;
+			document.getElementById("nurseError").innerHTML = "Please select nurse";
+			i++;
 		}
 		else
-			document.getElementById("patient").innerHTML = null;
-		if (createForm.driverName.value =="-1")
+			document.getElementById("nurseError").innerHTML = null;
+
+		if (assignDriver.driver.value =="-1")
 		{
-			document.getElementById("nurse").innerHTML = "Please select a nurse";
-			return false;
+			document.getElementById("driverError").innerHTML = "Please select driver";
+				i++;
 		}
 		else
-			document.getElementById("nurse").innerHTML = null;
-		if (createForm.nurseName.value =="-1")
-		{
-			document.getElementById("driver").innerHTML = "Please select a driver";
-			return false;
-		}
-		else
-			document.getElementById("driver").innerHTML = null;
+			document.getElementById("driverError").innerHTML = null;
+
+
+if(assignDriver.location.value == ""){
+	document.getElementById("locationError").innerHTML = "Please input location";
+				i++;
+}
+else
+document.getElementById("locationError").innerHTML = null;
+
+
+
+	 return (i == 0);
 	}
 </script>
+
+
+
+
+</body>
+</html> 
