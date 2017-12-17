@@ -4,54 +4,58 @@ session_start();
 include('connDB.php');
 
 if(isset($_POST['login'])){
-	require 'connDB.php';
-	$user = $_POST['loginID'];
-	$pass = $_POST['password'];
 
-	$regisTypeSQL = 
-		"SELECT 
-		regisType
-		FROM usertable
-		WHERE userID ='$user'";
-	$resultRegisTypeSQL = mysqli_query($con,$regisTypeSQL);
-	$getRegisType = mysqli_fetch_array($resultRegisTypeSQL);
-	$regisType = $getRegisType['regisType'];
-	echo $regisType;
-	if($regisType == '0'){
-		$_SESSION['userID'] = $user;
+	$Name = $_POST['loginID'];
+	$Password = md5($_POST['password']); 
+
+
+	$query = "SELECT id, Name, regisType, '0' AS Patient_ID FROM users WHERE Name = '$Name' AND Password = '$Password'
+	UNION 
+	SELECT id, Name, regisType, Patient_ID FROM clients WHERE Name = '$Name' AND Password = '$Password'";
+
+	$result = mysqli_query($con,$query);
+	$row = mysqli_fetch_array($result);
+
+
+
+	$_SESSION['userID'] = $row['id'];
+	$_SESSION['userName'] = $row['Name'];
+
+	switch ($row['regisType']) {
+		case 'A':
 		header('Location: admin/adminPage.php');
-	}else if($regisType == '1') {
-		$_SESSION['userID'] = $user;
-		header('Location: client/clientPage.php');
-	}else if($regisType == '2'){
-		$_SESSION['userID'] = $user;
-		header('Location: chef/chefPage.php');
-	}else if($regisType == '3'){
-		$_SESSION['userID'] = $user;
+		break;
+		case 'N':
+		header('Location: nurse/nursePage.php');
+		break;
+		case 'D':
 		header('Location: driver/driverPage.php');
-	}else if($regisType == '4'){
-		$_SESSION['userID'] = $user;
-		header('Location: nurse/nursePage.php');	
-	}else{
+		break;
+		case 'Z':
+		header('Location: chef/chefPage.php');
+		break;
+		case 'C':
+			header('Location: client/clientPage.php');
+			$_SESSION['Patient_ID'] = $row['Patient_ID'];
+			break;
+		default:
 		echo "Wrong username or password! Please try again.";
+		break;
 	}
 
-	if(isset($_POST['logout'])){
-		session_unregister(userID);
-	}
 }
 ?>
 <div class='login'>
 	<form method="post">
 		<fieldset>
-		<legend><strong>LOGIN</strong></legend>
-		<label for="loginID">Login ID:</label>
-		<input id="loginID" name="loginID" type="text" value="" maxlength="255" />
-		<br/><br/>
+			<legend><strong>LOGIN</strong></legend>
+			<label for="loginID">Login ID:</label>
+			<input id="loginID" name="loginID" type="text" value="" maxlength="255" />
+			<br/><br/>
 
-		<label for="password">Password:</label>
-		<input id="password" name="password" type="password" value="" maxlength="16" />
-		<br/><br/>
+			<label for="password">Password:</label>
+			<input id="password" name="password" type="password" value="" maxlength="16" />
+			<br/><br/>
 		</fieldset>
 		<br>
 		<center><input type="submit" value="Login" name="login"></center>

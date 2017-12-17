@@ -15,7 +15,7 @@ include ('updatePatientPHP.php');
 <body>
 <title>Update Patient</title>
 
-	<a href="../view.php?regisType=P"><img src='../../button/back.png' width="50" height="50"></a>
+	<a href="../view.php?type=P"><img src='../../button/back.png' width="50" height="50"></a>
 
 	<div class='create'>
 		<form method="post" name="createForm" action="" enctype='multipart/form-data' onsubmit="return myFunction()">

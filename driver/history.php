@@ -8,18 +8,12 @@ $timezone = date_default_timezone_set("Asia/Kuala_Lumpur");
 $time = date('H:i:s', time());
 
 
-$query = "SELECT ds.ID, d.Name AS Driver_Name, p.Name AS Patient_Name, n.Name AS Nurse_Name, ds.Location, ds.Description, ds.Date, ds.Time FROM users d INNER JOIN driver_schedule ds ON ds.Driver_ID = d.ID INNER JOIN users n ON ds.Nurse_ID = n.ID INNER JOIN patients p ON ds.Patient_ID = p.ID WHERE ds.Date = CURDATE() AND ds.Time >= '$time' ORDER BY Date, Time";
+$query = "SELECT ds.ID, d.Name AS Driver_Name, p.Name AS Patient_Name, n.Name AS Nurse_Name, ds.Location, ds.Description, ds.Date, ds.Time FROM users d INNER JOIN driver_schedule ds ON ds.Driver_ID = d.ID INNER JOIN users n ON ds.Nurse_ID = n.ID INNER JOIN patients p ON ds.Patient_ID = p.ID WHERE ds.Date < CURDATE() ORDER BY Date, Time";
 
 
 $result = mysqli_query($con,$query);
 
-
-echo date('d-F-Y h:i:s a', time());
-
-
 echo "<center>";
-
-
 
 if($row = mysqli_fetch_array($result)){
 	

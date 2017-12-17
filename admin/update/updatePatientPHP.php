@@ -57,14 +57,14 @@ if(isset($_POST['update'])){
 
 			$query = "UPDATE patients SET Name = '$Name', IC = '$IC', Gender = '$Gender', Birthyear = $Birthyear, Contact = '$Contact', Address = '$Address', regisDate = '$regisDate', regisType = '$regisType', BloodType = '$BloodType', Meals = '$Meals' , Allergic = '$Allergic', Sickness = '$Sickness', Deposit = $Deposit, Image = '$image' WHERE id=$ID";
 
-			$resultPatient = mysqli_query($con,$query);
+			$result = mysqli_query($con,$query);
 
 
-			var_dump($resultPatient);
-			if ($resultPatient) {
+			var_dump($result);
+			if ($result) {
 				echo "Patient Updated";
 				move_uploaded_file($_FILES['file']['tmp_name'], $target_dir.$image);
-
+header('Location: ../view.php?type=P');
 			}else{
 				echo 'failed';
 			}	
