@@ -1,4 +1,5 @@
 <?php
+
 	include('../connDB.php');
 
 	$q = $_REQUEST["q"];
@@ -8,67 +9,78 @@
 		$q = strtolower($q);
 		$len = strlen($q);
 		if($type == "0"){
-			$sql= "SELECT * FROM 
-			usertable WHERE name LIKE '$q%'";
+			$query = "SELECT id, Name, IC, Contact, regisType FROM users 
+			WHERE Name LIKE '$q%'
+			UNION 
+			SELECT id, Name, IC, Contact, regisType FROM clients
+			WHERE Name LIKE '$q%'
+			UNION 
+			SELECT id, Name, IC, Contact, regisType FROM patients
+			WHERE Name LIKE '$q%'
+			ORDER BY FIELD(regisType, 'A', 'N', 'D', 'Z', 'C', 'P'), id";
+
 		}else{
-			$sql= "SELECT * FROM 
-			usertable WHERE userID LIKE '$q%'";
+			$query = "SELECT id, Name, IC, Contact, regisType FROM users 
+			WHERE id LIKE '$q%'
+			UNION 
+			SELECT id, Name, IC, Contact, regisType FROM clients
+			WHERE id LIKE '$q%'
+			UNION 
+			SELECT id, Name, IC, Contact, regisType FROM patients
+			WHERE id LIKE '$q%'
+			ORDER BY FIELD(regisType, 'A', 'N', 'D', 'Z', 'C', 'P'), id";
 		}
 
-		if($records = mysqli_query($con,$sql)){
+		if($result = mysqli_query($con,$query)){
 			echo "<center>";
+			echo "<p class = big><strong>All User Data</strong></p>";
 			echo "<table class ='showData' 	border = 1>";
 			echo "<tr>";
-			echo "<th>Link</th>";
 			echo "<th>ID</th>";
 			echo "<th>Name</th>";
 			echo "<th>IC</th>";
 			echo "<th>Contact</th>";
-			echo "<th>Address</th>";
-			echo "<th>Gender</th>";
-			echo "<th>Registration Date</th>";
 			echo "<th>Type</th>";
 			echo "</tr>";
 
-			while ($row = mysqli_fetch_array($records)) {
+			while ($row = mysqli_fetch_array($result)) {
 				echo "<tr>";
-
-echo '<td><input type="submit" value="Next" name="next"></td>';
-
-
-				echo "<td>".$row['userID']. "</td>";
+				echo "<td>".$row['id']. "</td>";
 				echo "<td>" .$row['Name']. "</td>";
 				echo "<td>" .$row['IC']. "</td>";
 				echo "<td>" .$row['Contact']. "</td>";
-				echo "<td>" .$row['Addr']. "</td>";
-				if($row['Sex'] == '0'){
-					echo "<td>Female</td>";
-				}elseif($row['Sex'] == '1'){
-					echo "<td>Male</td>";
+
+				echo "<td>";
+				switch ($row['regisType']) {
+					case 'A':
+					echo "Admin";
+					break;
+					case 'C':
+					echo "Client";
+					break;
+					case 'Z':
+					echo "Chef";
+					break;
+					case 'D':
+					echo "Driver";
+					break;
+					case 'N':
+					echo "Nurse";
+					break;
+					case 'P':
+					echo "Patient";
+					break;	
+					default:
+					echo "Invalid";
+					break;
 				}
-				echo "<td>" .$row['regisDate']. "</td>";
-				if($row['regisType'] == '0'){
-					echo "<td>Admin</td>";
-				}elseif ($row['regisType'] == '1') {
-					echo "<td>Client</td>";
-				}elseif ($row['regisType'] == '2') {
-					echo "<td>Chef</td>";
-				}elseif ($row['regisType'] == '3') {
-					echo "<td>Driver</td>";
-				}elseif ($row['regisType'] == '4') {
-					echo "<td>Nurse</td>";
-				}elseif ($row['regisType'] == '5') {
-					echo "<td>Patient</td>";
-				}
-				/*echo "<td>";
-				echo "<a href= 'edit.php?id={$row['userID']}'>Edit</a>";
-				echo "/";
-				echo "<a href= 'Delete.php?id={$row['userID']}'>Delete</a>";
-				echo "</td>";*/
+				echo "</td>";
+
 				echo "</tr>";
 			}
 			echo "</table>";
 			echo "</center>";
 		}
 	}
+
 ?>
