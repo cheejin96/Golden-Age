@@ -20,6 +20,7 @@ if(isset($_POST['login'])){
 
 	$_SESSION['userID'] = $row['id'];
 	$_SESSION['userName'] = $row['Name'];
+	$_SESSION['regisType'] = $row['regisType'];
 
 	switch ($row['regisType']) {
 		case 'A':

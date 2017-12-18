@@ -2,7 +2,7 @@
 
 session_start();
 
-if(isset($_SESSION['userID'])){
+if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "N"){
 	include '../../CSS.php'; 
 include ('getPatient.php'); 
 include ('updatePatientPHP.php');  

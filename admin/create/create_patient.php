@@ -1,11 +1,8 @@
 <?php 
 
-//include ('regisUser.php'); 
-include ('regisPatientPHP.php');  ?>
-
-<!DOCTYPE html>
-<html>
-<body>
+if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "A"){
+	include ('regisPatientPHP.php'); 
+	?>
 
 
 	<div class='create'>
@@ -176,5 +173,16 @@ include ('regisPatientPHP.php');  ?>
 			}
 		</script>
 
-	</body>
-	</html> 
+
+		<?php
+	}else{
+		header("HTTP/1.0 404 Not Found");
+		echo "<h1>404 Not Found</h1>";
+		echo "<p>The page that you have requested could not be found.</p>";
+
+		echo "<a href= '../login.php'>";
+		echo "Please Login to open this page.";
+		echo "</a>";
+		exit();
+	}
+	?>

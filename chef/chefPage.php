@@ -1,34 +1,39 @@
-<?php include ('../CSS.php') ?>
-<?php include ('header.php') ?>	
+<?php 
 
-<?php
-	include('../connDB.php');
-	$vegetarianSql = "SELECT COUNT(*) FROM patienttable WHERE foodSensitive = '0'";
-	$resultVegetarianSQL = mysqli_query($con,$vegetarianSql);
-	$vegetarianCount = mysqli_fetch_array($resultVegetarianSQL);
+session_start();
 
-	$noporkSql = "SELECT COUNT(*) FROM patienttable WHERE foodSensitive = '1'";
-	$resultNoporkSQL = mysqli_query($con,$noporkSql);
-	$noporkCount = mysqli_fetch_array($resultNoporkSQL);
+if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "Z"){
 
-	$nocowSql = "SELECT COUNT(*) FROM patienttable WHERE foodSensitive = '2'";
-	$resultNocowSQL = mysqli_query($con,$nocowSql);
-	$nocowCount = mysqli_fetch_array($resultNocowSQL);
+include ('../CSS.php');
+include ('chefHeader.php');
 
-	$normalSql = "SELECT COUNT(*) FROM patienttable WHERE foodSensitive = '3'";
-	$resultNormalSQL = mysqli_query($con,$normalSql);
-	$normalCount = mysqli_fetch_array($resultNormalSQL);
+?>
 
-	$total = $vegetarianCount[0] + $noporkCount[0] + $nocowCount[0] + $normalCount[0];
-	echo "<center>";
-	echo "Vegetarian : $vegetarianCount[0] person";
-	echo "<br>";
-	echo "No Pork : $noporkCount[0] person";
-	echo "<br>";
-	echo "No Cow : $nocowCount[0] person";
-	echo "<br>";
-	echo "Normal : $normalCount[0] person";
-	echo "<br>";
-	echo "Total : $total person";
-	echo "</center>";
+
+<!DOCTYPE html>
+	<html>
+	<title>Home</title>
+
+	<body>
+
+		<?php include 'showMeals.php'; ?>
+	</body>
+
+	</html>
+
+
+
+
+
+	<?php 
+}else{
+	header("HTTP/1.0 404 Not Found");
+	echo "<h1>404 Not Found</h1>";
+	echo "<p>The page that you have requested could not be found.</p>";
+
+	echo "<a href= '../login.php'>";
+	echo "Please Login to open this page.";
+	echo "</a>";
+	exit();
+}
 ?>

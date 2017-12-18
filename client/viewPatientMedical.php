@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-if(isset($_SESSION['Patient_ID'])){
+if(isset($_SESSION['Patient_ID']) && $_SESSION['regisType'] == "C"){
 	include('../connDB.php');
 	include ('clientHeader.php'); 
 

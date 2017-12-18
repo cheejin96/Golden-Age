@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-if(isset($_GET["ID"]) && isset($_SESSION['Patient_ID'])){
+if(isset($_GET["ID"]) && isset($_SESSION['Patient_ID']) && $_SESSION['regisType'] == "C"){
 
 
 	include ('clientHeader.php'); 

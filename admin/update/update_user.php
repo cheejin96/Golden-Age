@@ -2,7 +2,7 @@
 
 session_start();
 
-if(isset($_SESSION['userID'])){
+if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "A"){
 
 	include '../../CSS.php'; 
 	include 'getUser.php'; 
@@ -32,7 +32,7 @@ if(isset($_SESSION['userID'])){
 
 	<body>
 
-		<a href="../view.php?regisType=U"><img src='../../button/back.png' width="50" height="50"></a>
+		<a href="../view.php?type=U"><img src='../../button/back.png' width="50" height="50"></a>
 
 		<div class='create'>
 			<form method="post" name="createForm" action="" enctype='multipart/form-data' onsubmit="return myFunction()" >
@@ -105,55 +105,55 @@ if(isset($_SESSION['userID'])){
 		var i = 0;
 		if (createForm.name.value ==""){
 			document.getElementById("nameError").innerHTML = "Name cannot be empty";
-//return false;
-i++;
-}else
-document.getElementById("nameError").innerHTML = null;
+
+			i++;
+		}else
+		document.getElementById("nameError").innerHTML = null;
 
 
 
-if (createForm.ic.value ==""){
-	document.getElementById("icError").innerHTML = "IC must be fill";
-//return false;
-i++;
-}else
-document.getElementById("icError").innerHTML = null;
+		if (createForm.ic.value ==""){
+			document.getElementById("icError").innerHTML = "IC must be fill";
 
-if (createForm.contact.value ==""){
-	document.getElementById("contactError").innerHTML = "Contact must be fill";
-//return false;
-i++;
-}else
-document.getElementById("contactError").innerHTML = null;
+			i++;
+		}else
+		document.getElementById("icError").innerHTML = null;
 
-if (!createForm.age.value ==""){
-	if (isNaN(createForm.age.value)){
-		document.getElementById("ageError").innerHTML = "Not a number";
-//return false;
-i++;
-}else
-document.getElementById("ageError").innerHTML = null;
+		if (createForm.contact.value ==""){
+			document.getElementById("contactError").innerHTML = "Contact must be fill";
 
-}else{
-	document.getElementById("ageError").innerHTML = "Age must be fill";
-//	return false;
-i++;
-}
+			i++;
+		}else
+		document.getElementById("contactError").innerHTML = null;
 
-if(createForm.address.value == ""){
-	document.getElementById("addressError").innerHTML = "Address must be filled";
-//return false;
-i++;
-}else{
-	document.getElementById("addressError").innerHTML = null;
-}
+		if (!createForm.age.value ==""){
+			if (isNaN(createForm.age.value)){
+				document.getElementById("ageError").innerHTML = "Not a number";
 
+				i++;
+			}else
+			document.getElementById("ageError").innerHTML = null;
 
+		}else{
+			document.getElementById("ageError").innerHTML = "Age must be fill";
+
+			i++;
+		}
+
+		if(createForm.address.value == ""){
+			document.getElementById("addressError").innerHTML = "Address must be filled";
+
+			i++;
+		}else{
+			document.getElementById("addressError").innerHTML = null;
+		}
 
 
 
-return (i == 0);
-}
+
+
+		return (i == 0);
+	}
 </script>
 
 

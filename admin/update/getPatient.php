@@ -1,5 +1,5 @@
 <?php 
-
+if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "A"){
 include('../../connDB.php');
 
 
@@ -39,5 +39,11 @@ $Image = $row['Image'];
     }
 
 
+}
+}else{
+  header("HTTP/1.0 404 Not Found");
+  echo "<h1>404 Not Found</h1>";
+  echo "<p>The page that you have requested could not be found.</p>";
+  exit();
 }
 ?>

@@ -1,16 +1,17 @@
 <?php 
-include('../../connDB.php');
 
-include('../../CSS.php');
-
-
-
-if(isset($_GET["ID"])){
-	$Patient_ID = $_GET["ID"];
+if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "N"){
+	include('../../connDB.php');
+	include('../../CSS.php');
 
 
 
-$Nurse_ID = $_SESSION['userID'];
+	if(isset($_GET["ID"])){
+		$Patient_ID = $_GET["ID"];
+
+
+
+		$Nurse_ID = $_SESSION['userID'];
 		$Date = date('Y-m-d');
 		
 		$query = "SELECT Name FROM patients WHERE ID = $Patient_ID";
@@ -46,8 +47,15 @@ $Nurse_ID = $_SESSION['userID'];
 				echo 'failed to add Patient Medical Record';
 			}	
 		}
-}
-else{
+	}
+	else{
+		header("HTTP/1.0 404 Not Found");
+		echo "<h1>404 Not Found</h1>";
+		echo "The page that you have requested could not be found.";
+		exit();
+	}
+
+}else{
 	header("HTTP/1.0 404 Not Found");
 	echo "<h1>404 Not Found</h1>";
 	echo "The page that you have requested could not be found.";

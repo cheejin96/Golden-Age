@@ -1,8 +1,9 @@
 <?php
 include('../connDB.php');
 
-if(isset($Patient_ID)){
 
+if(isset($Patient_ID) && isset($_SESSION['userID']) && $_SESSION['regisType'] == "C"){
+	
 	$query = "SELECT Name, IC, Contact, BirthYear, Address, Gender, RegisDate, BloodType, Meals, Allergic, Sickness, Deposit, Image FROM patients WHERE ID = $Patient_ID";
 
 	echo "<center>";

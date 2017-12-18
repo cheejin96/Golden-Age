@@ -2,7 +2,7 @@
 
 session_start();
 
-if(isset($_SESSION['userID'])){
+if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "N"){
 
 	include '../../CSS.php'; 
 	include 'getClient.php'; 
@@ -12,29 +12,29 @@ if(isset($_SESSION['userID'])){
 	
 
 	?>
-<!DOCTYPE html>
-<html>
-<title>Update Client</title>
-<body>
+	<!DOCTYPE html>
+	<html>
+	<title>Update Client</title>
+	<body>
 
-	<a href="../view.php?type=C"><img src='../../button/back.png' width="50" height="50"></a>
+		<a href="../view.php?type=C"><img src='../../button/back.png' width="50" height="50"></a>
 
-	<div class='create'>
-		<form method="post" name="createForm" action="" enctype='multipart/form-data' onsubmit="return myFunction()">
-			<fieldset>
-				<legend><p class="big"><strong>Update Client</strong></p></legend>
-				<label for="name">Name:</label>
-			<input id="name" name="Name" type="text" value="<?php echo $Name; ?>" maxlength="255" />
+		<div class='create'>
+			<form method="post" name="createForm" action="" enctype='multipart/form-data' onsubmit="return myFunction()">
+				<fieldset>
+					<legend><p class="big"><strong>Update Client</strong></p></legend>
+					<label for="name">Name:</label>
+					<input id="name" name="Name" type="text" value="<?php echo $Name; ?>" maxlength="255" />
 					<font color="red"><div id = "nameError"></div></font>
 					<br/><br/>
 
 
-				<label for="IC">IC:</label>
+					<label for="IC">IC:</label>
 					<input id="ic" name="IC" type="text" value="<?php echo $IC; ?>" maxlength="16" />
 					<font color="red"><div id = "icError"></div></font>
 					<br/><br/>
 
-				<label for="Contact">Contact:</label>
+					<label for="Contact">Contact:</label>
 					<input id="contact" name="Contact" type="text" value="<?php echo $Contact; ?>" maxlength="16" />
 					<font color="red"><div id = "contactError"></div></font>
 					<br/><br/>
@@ -44,13 +44,13 @@ if(isset($_SESSION['userID'])){
 					<font color="red"><div id = "ageError"></div></font>
 					<br/><br/>
 
-				<label for="Address">Address:</label>
+					<label for="Address">Address:</label>
 					<input id="address" name="Address" type="text" value="<?php echo $Address; ?>" maxlength="255" />
 					<font color="red"><div id = "addressError"></div></font>
 					<br/><br/>
 
-				<!-- Gender -->
-		<input id="male" type="radio" name="Gender" value="M" <?php echo ($Gender=="M" ? 'checked':''); ?>> Male<br>
+					<!-- Gender -->
+					<input id="male" type="radio" name="Gender" value="M" <?php echo ($Gender=="M" ? 'checked':''); ?>> Male<br>
 					<input id="female" type="radio" name="Gender" value="F" <?php echo ($Gender=="F" ? 'checked':''); ?>> Female<br>
 
 <!--		<label for="Sex">Gender:</label>
