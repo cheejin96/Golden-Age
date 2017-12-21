@@ -1,6 +1,7 @@
-<?php include ('CSS.php') ?>
-<?php
+<?php 
 session_start();
+include ('CSS.php');
+
 include('connDB.php');
 
 if(isset($_POST['login'])){

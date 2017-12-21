@@ -17,7 +17,6 @@ if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "A"){
 				<fieldset>
 					<legend><strong><p class="big">Assign Driver</p></strong></legend>
 					<label>Patient Name:</label>
-					<label>Patient:</label>
 					<select id="patient" name="Patient_ID">
 						<option value ="-1">-------</option>
 						<?php while($row = mysqli_fetch_array($resultPatient)):;?>
@@ -48,7 +47,7 @@ if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "A"){
 					<input id="date" type="date" name= "Date" size="16" >
 					<font color="red"><div id="dateError"></div></font>
 					<br>
-					<label>Date:</label>
+					<label>Time:</label>
 					<input id="time" type="time" name= "Time" size="16" >
 					<font color="red"><div id="timeError"></div></font>
 

@@ -1,8 +1,5 @@
 <?php 
 
-
-session_start();
-
 if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "N"){
 
 	include 'regisClientPHP.php'; 
@@ -69,9 +66,7 @@ if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "N"){
 					<font color="red"><div id = "relationshipError"></div></font>
 					<br/><br/>
 
-					<label for="Photo">Photo:</label>
-					<input id="file" name="file" type="file"/>
-					<br/><br/>
+					
 				</fieldset>
 
 				<br>

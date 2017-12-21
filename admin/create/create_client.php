@@ -63,10 +63,7 @@ if(isset($_SESSION['userID']) && $_SESSION['regisType'] == "A"){
 					<input id="relationship" name="Relationship" type="text" value="" maxlength="16" />
 					<font color="red"><div id = "relationshipError"></div></font>
 					<br/><br/>
-
-					<label for="Photo">Photo:</label>
-					<input id="file" name="file" type="file"/>
-					<br/><br/>
+					
 				</fieldset>
 
 				<br>
