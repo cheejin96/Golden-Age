@@ -139,4 +139,17 @@ table.showData{
 	margin-top: 25px;
 	width: 80%;
 }
+
+td.inLine{
+	display: inline;
+}
+
+tr.inLine{
+	display: inline;
+}
+
+table.inLine{
+	display: inline;
+}
+
 </style>
